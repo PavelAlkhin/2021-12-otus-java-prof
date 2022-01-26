@@ -1,4 +1,4 @@
-# Домашние работы сутдента Альхин Павел Викторович. 
+# Домашние работы студента Альхин Павел Викторович. 
 # Курс OTUS ["Разработчик Java"](https://otus.ru/lessons/java-professional/?utm_source=github&utm_medium=free&utm_campaign=otus)
 
 
