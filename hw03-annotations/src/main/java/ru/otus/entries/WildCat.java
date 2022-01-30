@@ -4,6 +4,7 @@ public class WildCat extends Cat {
     private String name;
 
     public WildCat( String name ) {
+        super("qqa");
         this.name = name;
     }
 
