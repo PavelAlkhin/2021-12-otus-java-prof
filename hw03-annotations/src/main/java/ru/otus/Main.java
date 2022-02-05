@@ -1,15 +1,12 @@
 package ru.otus;
 
-import ru.otus.entries.Cat;
+import ru.otus.launcher.TestLauncher;
+import ru.otus.test.CatsCreatorTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
 
 public class Main {
-    public static void main(String[] args) {
-        List<Cat> cats = new ArrayList<>();
-        cats.add(new Cat("Vovka"));
-        cats.add(new Cat("Murzik"));
-
+    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
+        TestLauncher.startTest(CatsCreatorTest.class);
     }
 }
