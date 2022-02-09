@@ -40,10 +40,21 @@ public class TestLauncher {
                 System.out.println("ERROR: "+exc);
                 continue;
             }
+
+            //Befor method.
+            boolean beforSuccess = true;
             if (befor != null){
-                invokeMethod(befor, res, obj);
+                if (invokeMethod(befor, res, obj) == 0){
+                    beforSuccess = false;
+                }
             }
-            success += invokeMethod(m, res, obj);
+
+            //Trying invoke Test method if Befor method was successed
+            if (beforSuccess) {
+                success += invokeMethod(m, res, obj);
+            }
+
+            //After method have to be run Always
             if (after != null){
                 invokeMethod(after, res, obj);
             }
