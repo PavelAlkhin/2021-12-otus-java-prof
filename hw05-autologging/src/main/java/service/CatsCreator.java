@@ -12,6 +12,10 @@ public interface CatsCreator {
 
     void addCat(Cat cat);
 
+    void addCats(Cat cat1, Cat cat2);
+
+    void addCats(Cat cat1, Cat cat2, Cat cat3);
+
     void removeCat(Cat cat);
 
     List<Cat> getCats();

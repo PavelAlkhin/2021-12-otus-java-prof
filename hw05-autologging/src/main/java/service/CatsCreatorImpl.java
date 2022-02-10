@@ -21,7 +21,6 @@ public class CatsCreatorImpl implements CatsCreator {
         return cats;
     }
 
-    @Log
     @Override
     public void addForCats(){
         for (int i = 0; i<4; i++){
@@ -29,31 +28,45 @@ public class CatsCreatorImpl implements CatsCreator {
         }
     }
 
-    @Log
     @Override
     public void addCat(Cat cat){
         cats.add(cat);
     }
 
+    @Override
     @Log
+    public void addCats(Cat cat1, Cat cat2) {
+        this.addCat(cat1);
+        this.addCat(cat2);
+    }
+
+    public void addCats(Integer cat1, Cat cat2) {
+        this.addCat(cat2);
+    }
+
+    @Override
+    @Log
+    public void addCats(Cat cat1, Cat cat2, Cat cat3) {
+        this.addCat(cat1);
+        this.addCat(cat2);
+        this.addCat(cat3);
+    }
+
     @Override
     public void removeCat(Cat cat){
         cats.remove(cat);
     }
 
-    @Log
     @Override
     public List<Cat> getCats() {
         return cats;
     }
 
-    @Log
     @Override
     public void clearCats(){
         cats.clear();
     }
 
-    @Log
     @Override
     public int countCats(){
         return cats.size();
