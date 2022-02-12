@@ -7,6 +7,8 @@ import service.CatsCreatorImpl;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProxyLogging {
     public static CatsCreator createMyClass() {
@@ -18,10 +20,18 @@ public class ProxyLogging {
     static class DemoInvocationHandler implements InvocationHandler {
         private final CatsCreatorImpl myClass;
         private final Method[] declaredMethods;
+        private final Map<Method, String> loggingMethods;
 
         DemoInvocationHandler(CatsCreatorImpl myClass) {
             this.myClass = myClass;
             this.declaredMethods = myClass.getClass().getDeclaredMethods();
+            this.loggingMethods = new HashMap<>();
+
+            for (Method m : declaredMethods) {
+                if (m.isAnnotationPresent(Log.class)) {
+                    this.loggingMethods.put(m, m.getName());
+                }
+            }
         }
 
         @Override
@@ -37,23 +47,22 @@ public class ProxyLogging {
         }
 
         private boolean isLogging(Method method, Object[] args, boolean logging) {
-            for (Method m : declaredMethods) {
-                if (m.getName().equals(method.getName())) {
-                    if (m.isAnnotationPresent(Log.class)) {
-
-                        boolean ok = true;
-                        for (int i = 0; i < args.length; i++) {
-                            Object argObj = args[i];
-
-                            Class<?> aClassImpl = argObj.getClass();
-                            if (!compareMethodParam(m, i, aClassImpl)) {
-                                ok = false;
-                            }
-                        }
-                        if (ok) {
-                            logging = true;
-                        }
+            for(Map.Entry<Method, String> entry : loggingMethods.entrySet()) {
+                boolean ok = true;
+                String mName = entry.getValue();
+                if (!mName.equals(method.getName())){
+                    continue;
+                }
+                Method m = entry.getKey();
+                for (int i = 0; i < args.length; i++) {
+                    Object argObj = args[i];
+                    Class<?> aClassImpl = argObj.getClass();
+                    if (!compareMethodParam(m, i, aClassImpl)) {
+                        ok = false;
                     }
+                }
+                if (ok) {
+                    logging = true;
                 }
             }
             return logging;
