@@ -17,21 +17,26 @@ public class ProxyLogging {
 
     static class DemoInvocationHandler implements InvocationHandler {
         private final CatsCreatorImpl myClass;
+        private final Method[] declaredMethods;
 
         DemoInvocationHandler(CatsCreatorImpl myClass) {
             this.myClass = myClass;
+            this.declaredMethods = myClass.getClass().getDeclaredMethods();
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Class aClass = myClass.getClass();
-            Method[] declaredMethods = aClass.getDeclaredMethods();
-            boolean logging = false;
-            if (args == null) {
-                int length = 0;
-            } else {
-                int length = args.length;
+
+            boolean logging = isLogging(method, args, false);
+
+            if (logging) {
+                System.out.println("executed method:" + method.getName() + ", param:" + args.length);
             }
+
+            return method.invoke(myClass, args);
+        }
+
+        private boolean isLogging(Method method, Object[] args, boolean logging) {
             for (Method m : declaredMethods) {
                 if (m.getName().equals(method.getName())) {
                     if (m.isAnnotationPresent(Log.class)) {
@@ -49,13 +54,9 @@ public class ProxyLogging {
                             logging = true;
                         }
                     }
-
                 }
             }
-            if (logging) {
-                System.out.println("executed method:" + method.getName() + ", param:" + args.length);
-            }
-            return method.invoke(myClass, args);
+            return logging;
         }
 
         private boolean compareMethodParam(Method m, int i, Class<?> aClassImpl) {
