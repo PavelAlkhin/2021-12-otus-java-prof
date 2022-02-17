@@ -2,20 +2,20 @@ package ru.calculator;
 
 public class Data {
 //    private final Integer value;
-    private Integer value;
+    private int value;
 
-    public Data(Integer value) {
+    public Data(int value) {
         this.value = value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
     public Data() {
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
     }
 }
