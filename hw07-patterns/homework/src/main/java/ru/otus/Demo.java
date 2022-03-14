@@ -13,7 +13,7 @@ import java.util.List;
 public class Demo {
     public static void main(String[] args) {
         var processors = List.of(new ProcessorConcatFields(),
-                new LoggerProcessor(new ProcessorUpperField10(), LocalDateTime::now));
+                new LoggerProcessor(new ProcessorUpperField10()));
 
         var complexProcessor = new ComplexProcessor(processors, ex -> {});
         var listenerPrinter = new ListenerPrinterConsole();

@@ -1,5 +1,7 @@
 package ru.otus;
 
+import ru.otus.processor.Processor;
+
 public class HomeWork {
 
     /*
@@ -20,5 +22,6 @@ public class HomeWork {
            по аналогии с Demo.class
            из элеменов "to do" создать new ComplexProcessor и обработать сообщение
          */
+
     }
 }
