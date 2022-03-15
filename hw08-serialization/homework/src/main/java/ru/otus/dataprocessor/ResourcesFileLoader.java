@@ -7,6 +7,7 @@ import ru.otus.model.Measurement;
 import ru.otus.model.MyMeasurement;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResourcesFileLoader implements Loader {
@@ -40,21 +41,24 @@ public class ResourcesFileLoader implements Loader {
             }
             content = responseStrBuilder.toString();
 
-//            JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        List<Measurement> measurements = new ArrayList<>();
         try {
-            var dataLoaded = mapper.readValue(content, MyMeasurement.class);
-//            MyMeasurement dataLoaded = mapper.reader().forType(MyMeasurement.class).readValue("{\"name\":\"val1\",\"value\":0.0}");
-            System.out.println(dataLoaded.toString());
+            MyMeasurement[] dataLoaded = mapper.readValue(content, MyMeasurement[].class);
+            for (MyMeasurement m : dataLoaded){
+                measurements.add(new Measurement(m.getName(), m.getValue()));
+            }
         } catch (IOException e) {
             throw new FileProcessException("ERROR with read file. " + e);
+        }catch (Exception ex){
+            throw new FileProcessException("ERROR with read file" + ex);
         }
 
-        return null;
+        return measurements;
     }
 }
