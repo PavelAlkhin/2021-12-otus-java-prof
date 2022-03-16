@@ -10,9 +10,9 @@ public class MyMeasurement {
     @JsonProperty("value")
     private double value;
 
-    public MyMeasurement(String name, double value, String name1, double value1) {
-        this.name = name1;
-        this.value = value1;
+    public MyMeasurement(String name, double value) {
+        this.name = name;
+        this.value = value;
     }
 
     public MyMeasurement() {
