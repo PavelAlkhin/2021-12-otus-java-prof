@@ -7,5 +7,6 @@ include 'hw06-atm-solid'
 
 include 'hw04-gc'
 include 'hw05-autologging'
-
+include 'hw07-patterns:demo'
+include 'hw07-patterns:homework'
 
