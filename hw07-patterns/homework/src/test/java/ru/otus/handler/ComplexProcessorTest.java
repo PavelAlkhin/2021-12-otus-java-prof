@@ -40,7 +40,7 @@ class ComplexProcessorTest {
         verify(processor1).process(message);
         verify(processor2).process(message);
         assertThat(result).isEqualTo(message);
-        
+
     }
 
     @Test
