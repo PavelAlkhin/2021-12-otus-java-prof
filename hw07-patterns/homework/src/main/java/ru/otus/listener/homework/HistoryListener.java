@@ -37,6 +37,7 @@ public class HistoryListener implements Listener, HistoryReader {
                 .field13(obj)
                 .build();
         messages.put(msg.getId(), newMess);
+
     }
 
     @Override

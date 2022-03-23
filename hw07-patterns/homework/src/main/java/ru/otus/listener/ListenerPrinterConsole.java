@@ -8,5 +8,6 @@ public class ListenerPrinterConsole implements Listener {
     public void onUpdated(Message msg) {
         var logString = String.format("oldMsg:%s", msg);
         System.out.println(logString);
+
     }
 }

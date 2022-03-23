@@ -5,9 +5,7 @@ import ru.otus.model.Message;
 import java.time.LocalDateTime;
 
 public class ProcessorEvenSecondToThrow implements Processor {
-
     private LocalDateTime localDateTime;
-
     @Override
     public Message process(Message message) {
         if (localDateTime == null){

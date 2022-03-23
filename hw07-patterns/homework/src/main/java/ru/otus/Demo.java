@@ -26,10 +26,8 @@ public class Demo {
                 .field6("field6")
                 .field10("field10")
                 .build();
-
         var result = complexProcessor.handle(message);
         System.out.println("result:" + result);
-
         complexProcessor.removeListener(listenerPrinter);
     }
 }

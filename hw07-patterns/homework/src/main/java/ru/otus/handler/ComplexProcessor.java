@@ -31,6 +31,7 @@ public class ComplexProcessor implements Handler {
         }
         notify(newMsg);
         return newMsg;
+
     }
 
     @Override
