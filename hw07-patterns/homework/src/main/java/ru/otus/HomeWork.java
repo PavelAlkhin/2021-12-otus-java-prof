@@ -28,7 +28,7 @@ public class HomeWork {
            по аналогии с Demo.class
            из элеменов "to do" создать new ComplexProcessor и обработать сообщение
          */
-        
+
         var processors = List.of(new ProcessorChangeFiled11And12(),
                 new LoggerProcessor(new ProcessorEvenSecondToThrow()));
 
