@@ -9,4 +9,6 @@ include 'hw04-gc'
 include 'hw05-autologging'
 include 'hw07-patterns:demo'
 include 'hw07-patterns:homework'
+include 'hw09-orm:demo'
+include 'hw09-orm:homework'
 
