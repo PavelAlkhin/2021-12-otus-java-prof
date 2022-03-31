@@ -38,7 +38,7 @@ public class DbExecutorImpl implements DbExecutor {
                 return Optional.ofNullable(rsHandler.apply(rs));
             }
         } catch (SQLException ex) {
-            throw new DataBaseOperationException("executeSelect error", ex);
+            throw new DataBaseOperationException("executeSelect error (var pst = connection.prepareStatement(sql)):", ex);
         }
     }
 }

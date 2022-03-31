@@ -1,4 +1,4 @@
-package ru.otus.crm.service;
+package ru.otus.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
