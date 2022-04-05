@@ -5,4 +5,9 @@ public interface Versions {
     String asm = "9.2";
     String glassfishJson = "1.1.4";
     String protobuf = "3.19.4";
+<<<<<<< HEAD
+=======
+
+    String testcontainers = "1.15.3";
+>>>>>>> hw09-orm
 }
