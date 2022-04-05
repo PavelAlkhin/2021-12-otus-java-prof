@@ -38,8 +38,8 @@ allprojects {
 
 
 
-            dependency("org.testcontainers:junit-jupiter:${Versions.testcontainers}")
-            dependency("org.testcontainers:postgresql:${Versions.testcontainers}")
+//            dependency("org.testcontainers:junit-jupiter:${Versions.testcontainers}")
+//            dependency("org.testcontainers:postgresql:${Versions.testcontainers}")
         }
     }
 
