@@ -22,7 +22,7 @@ public class Client implements Cloneable {
     private Address address;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Phone> phone;
+    private List<Phone> phone = new ArrayList<>();
 
     public Client() {
         this.phone = new ArrayList<>();
@@ -44,12 +44,13 @@ public class Client implements Cloneable {
         this.phone = phone;
     }
 
-    public Client(Long id, String name, Address address, List<Phone> phone) {
+    public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
         this.address = address;
-//        this.phone = phone;
-        this.phone = phone == null ? new ArrayList<>() : phone.stream().peek(item -> item.setClient(this)).toList();
+        for(Phone p: phones){
+            p.setClient(this);
+        }
     }
 
 
