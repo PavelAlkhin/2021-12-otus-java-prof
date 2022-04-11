@@ -42,19 +42,21 @@ public class DbServiceDemo {
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
 ///
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
-        dbServiceClient.saveClient(new Client("dbServiceFirst"));
+//        Address address1 = new Address("street 1");
+//        List<Phone> phoneList = List.of(new Phone("263876236876"));
+//        Client firstClient = dbServiceClient.saveClient(new Client("dbServiceFirst", address1, phoneList));
 
-        var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
-        var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
-                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
-        log.info("clientSecondSelected:{}", clientSecondSelected);
-///
-        dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
-        var clientUpdated = dbServiceClient.getClient(clientSecondSelected.getId())
-                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
-        log.info("clientUpdated:{}", clientUpdated);
-
-        log.info("All clients");
-        dbServiceClient.findAll().forEach(client -> log.info("client:{}", client));
+//        var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond", address1, phoneList));
+//        var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
+//                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
+//        log.info("clientSecondSelected:{}", clientSecondSelected);
+/////
+//        dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
+//        var clientUpdated = dbServiceClient.getClient(clientSecondSelected.getId())
+//                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
+//        log.info("clientUpdated:{}", clientUpdated);
+//
+//        log.info("All clients");
+//        dbServiceClient.findAll().forEach(client -> log.info("client:{}", client));
     }
 }

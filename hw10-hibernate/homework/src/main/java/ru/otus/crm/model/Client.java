@@ -17,12 +17,11 @@ public class Client implements Cloneable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//, optional = false)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "client_id")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Phone> phone;
 
     public Client() {
@@ -39,17 +38,20 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
-    public Client(Long id, String name, Address address, List<Phone> phone) {
-        this.id = id;
+    public Client(String name, Address address, List<Phone> phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
     }
 
-    @Override
-    public Client clone() {
-        return new Client(this.id, this.name);
+    public Client(Long id, String name, Address address, List<Phone> phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+//        this.phone = phone;
+        this.phone = phone == null ? new ArrayList<>() : phone.stream().peek(item -> item.setClient(this)).toList();
     }
+
 
     public Long getId() {
         return id;
@@ -81,6 +83,11 @@ public class Client implements Cloneable {
 
     public void setPhone(Phone phone) {
         this.phone.add(phone);
+    }
+
+    @Override
+    public Client clone() {
+        return new Client(this.id, this.name, this.address, this.phone);
     }
 
     @Override

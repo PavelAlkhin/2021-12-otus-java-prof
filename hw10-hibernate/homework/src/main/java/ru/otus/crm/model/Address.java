@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
-public class Address {
+public class Address implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -13,6 +13,10 @@ public class Address {
     @Column(name = "street")
     private String street;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     public Address(Long id, String street) {
         this.id = id;
         this.street = street;
@@ -20,6 +24,16 @@ public class Address {
 
     public Address() {
 
+    }
+
+    public Address(Long id, String street, Client client) {
+        this.id = id;
+        this.street = street;
+        this.client = client;
+    }
+
+    public Address(String street) {
+        this.street = street;
     }
 
     public Long getId() {
@@ -36,6 +50,11 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Override
+    public Address clone() {
+        return new Address(this.id, this.street, this.client);
     }
 
     @Override
