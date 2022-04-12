@@ -1,5 +1,7 @@
 package ru.otus.crm.model;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "address")
 public class Address implements Cloneable {

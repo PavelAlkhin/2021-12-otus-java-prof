@@ -33,6 +33,7 @@ public class DbServiceClientImpl implements DBServiceClient {
             clientDataTemplate.update(session, clientCloned);
             log.info("updated client: {}", clientCloned);
             CLIENT_CACHE.setUpClientInCache(clientCloned);
+            log.info("client added to cache: {}", clientCloned);
             return clientCloned;
         });
     }
@@ -41,6 +42,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     public Optional<Client> getClient(long id) {
         Optional<Client> clientById = CLIENT_CACHE.findClientInCache(id);
         if (clientById.isPresent()){
+            log.info("client get from cache: {}", clientById);
             return clientById;
         }
         return transactionManager.doInReadOnlyTransaction(session -> {
