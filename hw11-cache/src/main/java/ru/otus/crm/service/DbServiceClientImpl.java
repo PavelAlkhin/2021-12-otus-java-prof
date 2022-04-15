@@ -2,6 +2,8 @@ package ru.otus.crm.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.otus.cache.HwCache;
+import ru.otus.cache.MyCache;
 import ru.otus.core.repository.DataTemplate;
 import ru.otus.core.sessionmanager.TransactionManager;
 import ru.otus.crm.model.Client;
@@ -11,7 +13,7 @@ import java.util.Optional;
 
 public class DbServiceClientImpl implements DBServiceClient {
     private static final Logger log = LoggerFactory.getLogger(DbServiceClientImpl.class);
-    private static final ClientCache CLIENT_CACHE = new ClientCache();
+    private final HwCache cache;
 
     private final DataTemplate<Client> clientDataTemplate;
     private final TransactionManager transactionManager;
@@ -19,6 +21,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     public DbServiceClientImpl(TransactionManager transactionManager, DataTemplate<Client> clientDataTemplate) {
         this.transactionManager = transactionManager;
         this.clientDataTemplate = clientDataTemplate;
+        this.cache = new MyCache();
     }
 
     @Override
@@ -32,7 +35,7 @@ public class DbServiceClientImpl implements DBServiceClient {
             }
             clientDataTemplate.update(session, clientCloned);
             log.info("updated client: {}", clientCloned);
-            CLIENT_CACHE.setUpClientInCache(clientCloned);
+            cache.put(clientCloned.getId(), clientCloned);
             log.info("client added to cache: {}", clientCloned);
             return clientCloned;
         });
@@ -40,14 +43,16 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Optional<Client> clientById = CLIENT_CACHE.findClientInCache(id);
-        if (clientById.isPresent()){
+        Client clientById = (Client) cache.get(id);
+        if (clientById != null){
             log.info("client get from cache: {}", clientById);
-            return clientById;
+            return Optional.of(clientById);
         }
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientOptional = clientDataTemplate.findById(session, id);
             log.info("client: {}", clientOptional);
+            Client cl = clientOptional.get();
+            cache.put(cl.getId(), cl);
             return clientOptional;
         });
     }
@@ -58,7 +63,7 @@ public class DbServiceClientImpl implements DBServiceClient {
             var clientList = clientDataTemplate.findAll(session);
             log.info("clientList:{}", clientList);
             for (Client c: clientList){
-                CLIENT_CACHE.setUpClientInCache(c);
+                cache.put(c.getId(), c);
             }
             return clientList;
        });
