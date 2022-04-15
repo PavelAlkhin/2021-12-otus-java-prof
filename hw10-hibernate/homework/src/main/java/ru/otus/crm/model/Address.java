@@ -26,6 +26,11 @@ public class Address implements Cloneable {
 
     }
 
+    public Address(String street, Client client) {
+        this.street = street;
+        this.client = client;
+    }
+
     public Address(Long id, String street, Client client) {
         this.id = id;
         this.street = street;

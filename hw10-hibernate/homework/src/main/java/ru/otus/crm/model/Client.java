@@ -22,10 +22,10 @@ public class Client implements Cloneable {
     private Address address;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Phone> phone = new ArrayList<>();
+    private List<Phone> phones = new ArrayList<>();
 
     public Client() {
-        this.phone = new ArrayList<>();
+        this.phones = new ArrayList<>();
     }
 
     public Client(String name) {
@@ -38,16 +38,17 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
-    public Client(String name, Address address, List<Phone> phone) {
+    public Client(String name, Address address, List<Phone> phones) {
         this.name = name;
         this.address = address;
-        this.phone = phone;
+        this.phones = phones;
     }
 
     public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.phones = phones;
         for(Phone p: phones){
             p.setClient(this);
         }
@@ -78,17 +79,17 @@ public class Client implements Cloneable {
         this.address = address;
     }
 
-    public List<Phone> getPhone() {
-        return phone;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone.add(phone);
+    public void setPhones(Phone phone) {
+        this.phones.add(phone);
     }
 
     @Override
     public Client clone() {
-        return new Client(this.id, this.name, this.address, this.phone);
+        return new Client(this.id, this.name, this.address, this.phones);
     }
 
     @Override
