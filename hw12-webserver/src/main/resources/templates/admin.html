@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Admin.Пользователи</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+<h4>Добавить Клиента</h4>
+<form action="" method="post">
+<input type="text" name="clientNameTextBox" value="" placeholder="Введите имя Клиента">
+<input type="text" name="clientAddressTextBox" value="" placeholder="Введите адрес Клиента">
+<input type="text" name="clientPhoneTextBox" value="" placeholder="Введите телефон Клиента">
+<button>Создать</button>
+</form>
+<pre id="userDataContainer"></pre>
+
+<h4>Случайный пользователь</h4>
+<table id="table_users" style="width: 400px">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 100px">Адрес</td>
+        <td style="width: 100px">Телефон</td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+
+    $(function () {
+        $.get('/api/admin').done(function (clients) {
+            console.log(clients);
+            var tbody = ``;
+            clients.forEach(function (client) {
+                let addr = client.address;
+                let phones = '';
+                client.phones.forEach(function (ph) {
+                    phones += `ph.:` + ph.number + `; `;
+                });
+
+                tbody += `<tr>`;
+                tbody += `<td>` + client.id + `</td>` +
+                    `<td>` + client.name + `</td>` +
+                    `<td>` + addr + `</td>` +
+                    `<td>` + phones + `</td>`
+                tbody += `</tr>`;
+            });
+
+            $('tbody').append(tbody);
+
+        })
+    });
+
+</script>
+</body>
+</html>
