@@ -44,10 +44,11 @@ public class DbServiceDemo {
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
         Address address1 = new Address("street 1");
         Address address2 = new Address("street 2");
-        List<Phone> phoneList = List.of(new Phone("263876236876"));
-        Client firstClient = dbServiceClient.saveClient(new Client("dbServiceFirst", address1, phoneList));
+        List<Phone> phoneList1 = List.of(new Phone("263876236876"));
+        List<Phone> phoneList2 = List.of(new Phone("263876236876"));
+        Client firstClient = dbServiceClient.saveClient(new Client("dbServiceFirst", address1, phoneList1));
 
-        var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond", address2, phoneList));
+        var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond", address2, phoneList2));
         var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
                 .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
