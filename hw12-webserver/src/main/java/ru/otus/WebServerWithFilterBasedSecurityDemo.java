@@ -37,6 +37,9 @@ import java.util.List;
 
     // REST сервис
     http://localhost:8080/api/user/3
+
+    // Админка с клиентами
+    http://localhost:8080/admin
 */
 public class WebServerWithFilterBasedSecurityDemo {
 
