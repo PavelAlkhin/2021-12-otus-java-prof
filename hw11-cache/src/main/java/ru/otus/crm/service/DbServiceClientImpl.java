@@ -36,6 +36,7 @@ public class DbServiceClientImpl implements DBServiceClient {
             clientDataTemplate.update(session, clientCloned);
             log.info("updated client: {}", clientCloned);
             cache.put(clientCloned.getId(), clientCloned);
+//            cache.addListener(new );
             log.info("client added to cache: {}", clientCloned);
             return clientCloned;
         });

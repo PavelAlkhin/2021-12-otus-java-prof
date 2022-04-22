@@ -19,11 +19,20 @@ public class MyCache<K, V> implements HwCache<K, V> {
 
     @Override
     public void put(K key, V value) {
+
+        HwListener<K, V> listener = (k, v, action) -> System.out.println("key:{" + k + "}, value:{" + v + "}, action: {" + action + "}");
+
+        listener.notify(key, value, "put");
+        addListener(listener);
         cache.put(key, value);
     }
 
     @Override
     public void remove(K key) {
+        V value = cache.get(key);
+        HwListener<K, V> listener = (k, v, action) -> System.out.println("key:{" + k + "}, value:{" + v + "}, action: {" + action + "}");
+        listener.notify(key, value, "delete");
+        removeListener(listener);
         cache.remove(key);
     }
 
