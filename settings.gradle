@@ -13,7 +13,3 @@ include 'hw09-orm:demo'
 include 'hw09-orm:homework'
 include 'hw10-hibernate:homework'
 include 'hw11-cache'
-include 'hw12-webserver'
-include 'hw13-ioc-container'
-include 'homework'
-
