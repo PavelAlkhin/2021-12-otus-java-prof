@@ -1,0 +1,15 @@
+rootProject.name = 'otusJava'
+include 'hw01-gradle'
+include 'hw02-generics'
+include 'hw03-annotations'
+
+include 'hw06-atm-solid'
+
+include 'hw04-gc'
+include 'hw05-autologging'
+include 'hw07-patterns:demo'
+include 'hw07-patterns:homework'
+include 'hw09-orm:demo'
+include 'hw09-orm:homework'
+include 'hw10-hibernate:homework'
+include 'hw11-cache'
