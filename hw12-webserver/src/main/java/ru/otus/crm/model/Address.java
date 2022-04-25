@@ -13,7 +13,7 @@ public class Address implements Cloneable {
     @Column(name = "street")
     private String street;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -24,6 +24,11 @@ public class Address implements Cloneable {
 
     public Address() {
 
+    }
+
+    public Address(String street, Client client) {
+        this.street = street;
+        this.client = client;
     }
 
     public Address(Long id, String street, Client client) {
