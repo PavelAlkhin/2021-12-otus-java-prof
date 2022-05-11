@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список Клиентов</title>
+</head>
+
+<body>
+<h4>"Update / Create"     Client</h4>
+<form action="/clients/new" method="post" modelAttribute="client">
+    <input type="text" name="name" value="" placeholder="Введите имя Клиента">
+    <input type="text" name="address" value="" placeholder="Введите адрес Клиента">
+    <input type="text" name="phone" value="" placeholder="Введите телефон Клиента">
+    <button>action</button>
+</form>
+
+<table id="table_users" style="width: 1000px">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 400px">Адрес</td>
+        <td style="width: 400px">Телефон</td>
+    </tr>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td><div th:each="addr : ${client.getAddressId()}" >
+            <span th:text="${addr.street}"></span>
+        </div></td>
+        <td><div th:each="phone : ${client.getPhones()}" >
+            <span th:text="${phone.number}"></span>
+        </div></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
