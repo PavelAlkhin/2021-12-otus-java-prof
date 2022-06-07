@@ -30,14 +30,14 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
     }
 
     @Override
-    public void process(SensorData data) {
-        dataBuffer.put(data);
+    public synchronized void process(SensorData data) {
+        dataBuffer.add(data);
         if (dataBuffer.size() >= bufferSize) {
             flush();
         }
     }
 
-    public void flush() {
+    public synchronized void flush() {
         try {
 //            List<SensorData> bufferedData = Collections.synchronizedList(new ArrayList<>());
 //            for (int i = 0; i < dataBuffer.size(); i++) {
@@ -61,10 +61,16 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
 //                    writer.writeBufferedData(bufferedData);
 //                }
 //            }
-            if (!dataBuffer.isEmpty()) {
-                List<SensorData> sensorDataList = new ArrayList<>();
-                dataBuffer.drainTo(sensorDataList);
-                writer.writeBufferedData(sensorDataList);
+//            synchronized (dataBuffer) {
+//                if (!dataBuffer.isEmpty()) {
+//                    List<SensorData> sensorDataList = new ArrayList<>();
+//                    dataBuffer.drainTo(sensorDataList);
+//                    writer.writeBufferedData(sensorDataList);
+//            }
+//        }
+            List<SensorData> bufferedData = new ArrayList<>();
+            if (dataBuffer.drainTo(bufferedData) > 0) {
+                writer.writeBufferedData(bufferedData);
             }
         } catch (Exception e) {
             log.error("Ошибка в процессе записи буфера", e);
